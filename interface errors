@@ -27,3 +27,153 @@ Summary: 1 package finished [4.13s]
 
 删除文件夹中的src文件夹
 
+2.
+colcon build --packages-select test_interfaces
+Starting >>> test_interfaces
+--- stderr: test_interfaces                            
+CMake Warning at /opt/ros/foxy/share/rosidl_generator_py/cmake/rosidl_generator_py_generate_interfaces.cmake:235 (add_library):
+  Cannot generate a safe runtime search path for target
+  test_interfaces__rosidl_typesupport_fastrtps_c__pyext because files in some
+  directories may conflict with libraries in implicit directories:
+
+    runtime library [libssl.so.1.1] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /home/von/anaconda3/lib
+    runtime library [libcrypto.so.1.1] in /usr/lib/x86_64-linux-gnu may be hidden by files in:
+      /home/von/anaconda3/lib
+
+  Some of these libraries may not be found correctly.
+Call Stack (most recent call first):
+  /opt/ros/foxy/share/ament_cmake_core/cmake/core/ament_execute_extensions.cmake:48 (include)
+  /opt/ros/foxy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:286 (ament_execute_extensions)
+  CMakeLists.txt:25 (rosidl_generate_interfaces)
+
+
+Traceback (most recent call last):
+  File "/opt/ros/foxy/share/rosidl_generator_c/cmake/../../../lib/rosidl_generator_c/rosidl_generator_c", line 8, in <module>
+    from rosidl_generator_c import generate_c
+  File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_generator_c/__init__.py", line 15, in <module>
+    from rosidl_cmake import convert_camel_case_to_lower_case_underscore
+  File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_cmake/__init__.py", line 24, in <module>
+    from rosidl_parser.parser import parse_idl_file
+  File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_parser/parser.py", line 20, in <module>
+    from lark import Lark
+ModuleNotFoundError: No module named 'lark'
+make[2]: *** [CMakeFiles/test_interfaces__rosidl_generator_c.dir/build.make:75: rosidl_generator_c/test_interfaces/srv/get_object_position.h] Error 1
+make[1]: *** [CMakeFiles/Makefile2:331: CMakeFiles/test_interfaces__rosidl_generator_c.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+Traceback (most recent call last):
+  File "/opt/ros/foxy/share/rosidl_generator_cpp/cmake/../../../lib/rosidl_generator_cpp/rosidl_generator_cpp", line 8, in <module>
+    from rosidl_generator_cpp import generate_cpp
+  File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_generator_cpp/__init__.py", line 17, in <module>
+    from rosidl_cmake import generate_files
+  File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_cmake/__init__.py", line 24, in <module>
+    from rosidl_parser.parser import parse_idl_file
+  File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_parser/parser.py", line 20, in <module>
+    from lark import Lark
+ModuleNotFoundError: No module named 'lark'
+make[2]: *** [CMakeFiles/test_interfaces__cpp.dir/build.make:85: rosidl_generator_cpp/test_interfaces/srv/get_object_position.hpp] Error 1
+make[1]: *** [CMakeFiles/Makefile2:469: CMakeFiles/test_interfaces__cpp.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2
+---
+Failed   <<< test_interfaces [1.14s, exited with code 2]
+
+Summary: 0 packages finished [1.36s]
+  1 package failed: test_interfaces
+  1 package had stderr output: test_interfaces
+
+pip install lark-parser
+
+3.
+colcon build --packages-select test_interfaces
+Starting >>> test_interfaces
+--- stderr: test_interfaces                         
+Traceback (most recent call last):
+  File "/opt/ros/foxy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 21, in <module>
+    from catkin_pkg.package import parse_package_string
+ModuleNotFoundError: No module named 'catkin_pkg'
+CMake Error at /opt/ros/foxy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:94 (message):
+  execute_process(/home/von/anaconda3/bin/python3
+  /opt/ros/foxy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+  /home/von/town_ws/src/test_interfaces/package.xml
+  /home/von/town_ws/build/test_interfaces/ament_cmake_core/package.cmake)
+  returned error code 1
+Call Stack (most recent call first):
+  /opt/ros/foxy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+  /opt/ros/foxy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:226 (ament_package_xml)
+  CMakeLists.txt:25 (rosidl_generate_interfaces)
+
+
+---
+Failed   <<< test_interfaces [0.56s, exited with code 1]
+
+Summary: 0 packages finished [0.78s]
+  1 package failed: test_interfaces
+  1 package had stderr output: test_interfaces
+
+pip install catkin_pkg
+
+4.
+User
+colcon build --packages-select test_interfaces
+Starting >>> test_interfaces
+--- stderr: test_interfaces                         
+CMake Error at /opt/ros/foxy/share/rosidl_adapter/cmake/rosidl_adapt_interfaces.cmake:60 (message):
+  execute_process(/home/von/anaconda3/bin/python3 -m rosidl_adapter
+  --package-name test_interfaces --arguments-file
+  /home/von/town_ws/build/test_interfaces/rosidl_adapter__arguments__test_interfaces.json
+  --output-dir
+  /home/von/town_ws/build/test_interfaces/rosidl_adapter/test_interfaces
+  --output-file
+  /home/von/town_ws/build/test_interfaces/rosidl_adapter/test_interfaces.idls)
+  returned error code 1:
+
+  AttributeError processing template 'srv.idl.em'
+
+  Traceback (most recent call last):
+
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/resource/__init__.py", line 51, in evaluate_template
+      em.BUFFERED_OPT: True,
+
+  AttributeError: module 'em' has no attribute 'BUFFERED_OPT'
+
+  
+
+  During handling of the above exception, another exception occurred:
+
+  
+
+  Traceback (most recent call last):
+
+    File "/home/von/anaconda3/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+      return _run_code(code, main_globals, None,
+    File "/home/von/anaconda3/lib/python3.9/runpy.py", line 87, in _run_code
+      exec(code, run_globals)
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/__main__.py", line 19, in <module>
+      sys.exit(main())
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/main.py", line 53, in main
+      abs_idl_file = convert_to_idl(
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/__init__.py", line 24, in convert_to_idl
+      return convert_srv_to_idl(
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/srv/__init__.py", line 39, in convert_srv_to_idl
+      expand_template('srv.idl.em', data, output_file, encoding='iso-8859-1')
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/resource/__init__.py", line 23, in expand_template
+      content = evaluate_template(template_name, data)
+    File "/opt/ros/foxy/lib/python3.8/site-packages/rosidl_adapter/resource/__init__.py", line 69, in evaluate_template
+      _interpreter.shutdown()
+
+  AttributeError: 'NoneType' object has no attribute 'shutdown'
+
+Call Stack (most recent call first):
+  /opt/ros/foxy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:130 (rosidl_adapt_interfaces)
+  CMakeLists.txt:25 (rosidl_generate_interfaces)
+
+
+---
+Failed   <<< test_interfaces [0.81s, exited with code 1]
+
+Summary: 0 packages finished [1.14s]
+  1 package failed: test_interfaces
+  1 package had stderr output: test_interfaces
+
+pip uninstall em
+pip install empy==3.3.4
